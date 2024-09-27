@@ -9,12 +9,23 @@ import UIKit
 
 class DefaultButton: UIButton {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    init(frame: CGRect, title: String, titleColor:UIColor, backgroundColor:UIColor, borderWidth:CGFloat) {
+        super.init(frame: frame)
+        self.setTitle(title, for: .normal)
+        self.setTitleColor(titleColor, for: .normal)
+        self.backgroundColor = backgroundColor
+        self.layer.borderWidth = borderWidth
+        titleLabel?.font = .boldSystemFont(ofSize: 14)
+        configure()
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure() {
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.cornerRadius = 4
+    }
+    
 }

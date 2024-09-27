@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum URLConstants {
+    static let baseURL = "https://dummyjson.com"
+}

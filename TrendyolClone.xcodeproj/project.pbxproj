@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		66EBCBF22CA15F2D00348544 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 66EBCBF12CA15F2D00348544 /* Kingfisher */; };
+		66FEECCF2C9ED94F00F8A4E4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 66FEECCE2C9ED94F00F8A4E4 /* SnapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		66FEEC6C2C9ED2D100F8A4E4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,6 +28,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		66FEECCC2C9ED93600F8A4E4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		66FEEC552C9ED2CF00F8A4E4 /* TrendyolClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrendyolClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66FEEC6B2C9ED2D100F8A4E4 /* TrendyolCloneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrendyolCloneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,7 +48,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		66FEEC7D2C9ED2D100F8A4E4 /* Exceptions for "TrendyolClone" folder in "TrendyolClone" target */ = {
+		66FEECAC2C9ED39800F8A4E4 /* Exceptions for "TrendyolClone" folder in "TrendyolClone" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -40,14 +58,6 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		66FEEC572C9ED2CF00F8A4E4 /* TrendyolClone */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				66FEEC7D2C9ED2D100F8A4E4 /* Exceptions for "TrendyolClone" folder in "TrendyolClone" target */,
-			);
-			path = TrendyolClone;
-			sourceTree = "<group>";
-		};
 		66FEEC6E2C9ED2D100F8A4E4 /* TrendyolCloneTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = TrendyolCloneTests;
@@ -58,6 +68,14 @@
 			path = TrendyolCloneUITests;
 			sourceTree = "<group>";
 		};
+		66FEECA72C9ED39800F8A4E4 /* TrendyolClone */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				66FEECAC2C9ED39800F8A4E4 /* Exceptions for "TrendyolClone" folder in "TrendyolClone" target */,
+			);
+			path = TrendyolClone;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66EBCBF22CA15F2D00348544 /* Kingfisher in Frameworks */,
+				66FEECCF2C9ED94F00F8A4E4 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +108,7 @@
 		66FEEC4C2C9ED2CF00F8A4E4 = {
 			isa = PBXGroup;
 			children = (
-				66FEEC572C9ED2CF00F8A4E4 /* TrendyolClone */,
+				66FEECA72C9ED39800F8A4E4 /* TrendyolClone */,
 				66FEEC6E2C9ED2D100F8A4E4 /* TrendyolCloneTests */,
 				66FEEC782C9ED2D100F8A4E4 /* TrendyolCloneUITests */,
 				66FEEC562C9ED2CF00F8A4E4 /* Products */,
@@ -115,16 +135,19 @@
 				66FEEC512C9ED2CF00F8A4E4 /* Sources */,
 				66FEEC522C9ED2CF00F8A4E4 /* Frameworks */,
 				66FEEC532C9ED2CF00F8A4E4 /* Resources */,
+				66FEECCC2C9ED93600F8A4E4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				66FEEC572C9ED2CF00F8A4E4 /* TrendyolClone */,
+				66FEECA72C9ED39800F8A4E4 /* TrendyolClone */,
 			);
 			name = TrendyolClone;
 			packageProductDependencies = (
+				66FEECCE2C9ED94F00F8A4E4 /* SnapKit */,
+				66EBCBF12CA15F2D00348544 /* Kingfisher */,
 			);
 			productName = TrendyolClone;
 			productReference = 66FEEC552C9ED2CF00F8A4E4 /* TrendyolClone.app */;
@@ -208,6 +231,10 @@
 			);
 			mainGroup = 66FEEC4C2C9ED2CF00F8A4E4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				66FEECCD2C9ED94F00F8A4E4 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				66EBCBF02CA15F2D00348544 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 66FEEC562C9ED2CF00F8A4E4 /* Products */;
 			projectDirPath = "";
@@ -294,9 +321,8 @@
 				INFOPLIST_FILE = TrendyolClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,6 +330,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.metehangurgentepe.TrendyolClone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -322,9 +352,8 @@
 				INFOPLIST_FILE = TrendyolClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,6 +361,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.metehangurgentepe.TrendyolClone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -569,6 +602,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		66EBCBF02CA15F2D00348544 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.3;
+			};
+		};
+		66FEECCD2C9ED94F00F8A4E4 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		66EBCBF12CA15F2D00348544 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66EBCBF02CA15F2D00348544 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		66FEECCE2C9ED94F00F8A4E4 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66FEECCD2C9ED94F00F8A4E4 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 66FEEC4D2C9ED2CF00F8A4E4 /* Project object */;
 }

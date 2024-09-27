@@ -7,82 +7,70 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+protocol MenuControllerDelegate: AnyObject {
+    func didTapMenuItem(indexPath: IndexPath)
+}
 
-class CategoryController: UICollectionViewController {
-
+class CategoryController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    var categories: [String]
+    var delegate: MenuControllerDelegate?
+    var icons: [UIImage?]? {
+        didSet{
+            collectionView.reloadData()
+        }
+    }
+    
+    init(collectionViewLayout layout: UICollectionViewLayout, categories: [String], icons: [UIImage]) {
+        self.categories = categories
+        self.icons = icons.map { $0 as UIImage? }
+        
+        if icons.count < categories.count {
+            let difference = categories.count - icons.count
+            self.icons?.append(contentsOf: Array(repeating: nil, count: difference))
+        } else if icons.count > categories.count {
+            self.icons = Array(icons.prefix(categories.count))
+        }
+        
+        super.init(collectionViewLayout: layout)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        
+        self.collectionView.register(CategoryButtonCell.self, forCellWithReuseIdentifier: CategoryButtonCell.identifier)
+        
+        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+            layout.itemSize = CGSize(width: 70, height: 35)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        }
+        
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.didTapMenuItem(indexPath: indexPath)
     }
-    */
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
+    
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return categories.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryButtonCell.identifier, for: indexPath) as! CategoryButtonCell
+        cell.configure(title: categories[indexPath.item], icon: icons![indexPath.item])
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let text = categories[indexPath.row]
+        let cellWidth = text.size(withAttributes:[.font: UIFont.systemFont(ofSize:12)]).width + 30
+        return CGSize(width: cellWidth, height: 30.0)
     }
-    */
-
 }

@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import UIKit
+
+
+struct Services{
+    let image: UIImage
+    let title: String
+    let campaignTitle: String
+}
