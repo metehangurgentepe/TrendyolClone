@@ -5,12 +5,6 @@
 //  Created by Metehan Gürgentepe on 25.09.2024.
 //
 
-//
-//  SearchBarTitleView.swift
-//  TrendyolClone
-//
-//  Created by Metehan Gürgentepe on 25.09.2024.
-//
 
 import UIKit
 
