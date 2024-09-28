@@ -8,7 +8,6 @@
 import UIKit
 
 class HomeVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, MenuControllerDelegate {
-    let searchBar = UISearchBar(frame: .zero)
     var homeSearchBar = HomeSearchBar(frame: .zero)
     let categories = Categories.allCases
     
@@ -35,6 +34,16 @@ class HomeVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Me
         navigationController?.navigationBar.backgroundColor = .white
         navigationController?.tabBarController?.tabBar.isTranslucent = false
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        homeSearchBar.searchBar.searchTextField.becomeFirstResponder()
+//        homeSearchBar.searchBar.searchTextField.resignFirstResponder()
+//        homeSearchBar.searchBar.searchTextField.endEditing(true)
+        homeSearchBar.searchBar.searchTextField.resignFirstResponder()
+        homeSearchBar.searchBar.text = ""
+    }
+    
     private func configure() {
         configureCategoryButtons()
         setupCollectionView()
@@ -101,7 +110,11 @@ extension HomeVC: HomeSearchBarDelegate {
     
     func navigate() {
         UIView.transition(with: view, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            self.view.addSubview(self.searchVC.view)
+            if self.searchVC.view.isHidden{
+//                self.searchVC.view.isHidden = false
+            } else {
+                self.view.addSubview(self.searchVC.view)
+            }
         }, completion: nil)
     }
     
