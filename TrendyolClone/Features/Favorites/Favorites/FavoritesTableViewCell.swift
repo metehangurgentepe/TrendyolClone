@@ -32,9 +32,9 @@ class FavoritesTableViewCell: UITableViewCell {
         return label
     }()
     
-    let ratingView = RatingView()
+    let ratingView = RatingView(frame: .zero)
     
-    let freeShippingView = ProductFreeShippingView()
+    let freeShippingView = ProductFreeShippingView(title: "Kargo Bedava", image: UIImage(systemName: "shippingbox.fill")!, imageColor: .gray)
     
     let priceLabel: UILabel = {
         let label = UILabel()
@@ -96,8 +96,9 @@ class FavoritesTableViewCell: UITableViewCell {
         freeShippingView.snp.makeConstraints { make in
             make.leading.equalTo(brandName.snp.leading)
             make.top.equalTo(ratingView.snp.bottom).offset(4)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(30)
+//            make.trailing.equalToSuperview()
+            make.width.equalTo(30)
+            make.height.equalTo(40)
         }
         
         priceLabel.snp.makeConstraints { make in
@@ -109,8 +110,8 @@ class FavoritesTableViewCell: UITableViewCell {
         
         addToBasketButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(10)
-            make.height.equalTo(40)
-            make.width.equalTo(100)
+            make.height.equalTo(30)
+            make.width.equalTo(140)
             make.top.equalTo(priceLabel.snp.bottom).offset(4)
         }
     }

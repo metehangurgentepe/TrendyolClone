@@ -15,6 +15,7 @@ class ProductFreeShippingView: UIView {
         label.font = .preferredFont(forTextStyle: .headline).withSize(8)
         label.textAlignment = .center
         label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -49,7 +50,7 @@ class ProductFreeShippingView: UIView {
         addSubview(imageView)
         
         imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(10)
+            make.width.height.equalTo(12)
             make.top.equalToSuperview().offset(2)
             make.centerX.equalToSuperview()
         }
