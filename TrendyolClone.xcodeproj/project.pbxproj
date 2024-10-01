@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6609E5642CA81B2F004953DE /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = 6609E5632CA81B2F004953DE /* Hero */; };
 		66EBCBF22CA15F2D00348544 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 66EBCBF12CA15F2D00348544 /* Kingfisher */; };
 		66FEECCF2C9ED94F00F8A4E4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 66FEECCE2C9ED94F00F8A4E4 /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66EBCBF22CA15F2D00348544 /* Kingfisher in Frameworks */,
+				6609E5642CA81B2F004953DE /* Hero in Frameworks */,
 				66FEECCF2C9ED94F00F8A4E4 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +150,7 @@
 			packageProductDependencies = (
 				66FEECCE2C9ED94F00F8A4E4 /* SnapKit */,
 				66EBCBF12CA15F2D00348544 /* Kingfisher */,
+				6609E5632CA81B2F004953DE /* Hero */,
 			);
 			productName = TrendyolClone;
 			productReference = 66FEEC552C9ED2CF00F8A4E4 /* TrendyolClone.app */;
@@ -234,6 +237,7 @@
 			packageReferences = (
 				66FEECCD2C9ED94F00F8A4E4 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				66EBCBF02CA15F2D00348544 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				6609E5622CA81B2F004953DE /* XCRemoteSwiftPackageReference "Hero" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 66FEEC562C9ED2CF00F8A4E4 /* Products */;
@@ -604,6 +608,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6609E5622CA81B2F004953DE /* XCRemoteSwiftPackageReference "Hero" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/HeroTransitions/Hero.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.3;
+			};
+		};
 		66EBCBF02CA15F2D00348544 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -623,6 +635,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6609E5632CA81B2F004953DE /* Hero */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6609E5622CA81B2F004953DE /* XCRemoteSwiftPackageReference "Hero" */;
+			productName = Hero;
+		};
 		66EBCBF12CA15F2D00348544 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 66EBCBF02CA15F2D00348544 /* XCRemoteSwiftPackageReference "Kingfisher" */;

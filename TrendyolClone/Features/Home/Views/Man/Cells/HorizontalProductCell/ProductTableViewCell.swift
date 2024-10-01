@@ -7,8 +7,11 @@
 
 import UIKit
 
-class ProductTableViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
-    
+protocol ProductCellDelegate: AnyObject {
+    func didSelectProduct(product: Product, image: UIImageView)
+}
+
+class ProductTableViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout, ProductTableCollectionViewCellDelegate {
     static let identifier = "ForYouTableViewCell"
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -16,6 +19,7 @@ class ProductTableViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout 
     var categoryController = CategoryController(collectionViewLayout: UICollectionViewFlowLayout(), categories: [], icons: [])
     
     var isFlashSale: Bool = false
+    var selectedProduct: Product?
     
     var smaller: Bool = false
     
@@ -26,13 +30,14 @@ class ProductTableViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout 
         imageView.clipsToBounds = true
         return imageView
     }()
+    var delegate: ProductCellDelegate?
     
     var products: [Product]? {
         didSet {
             collectionView.reloadData()
         }
     }
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -41,7 +46,7 @@ class ProductTableViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func configure() {
         collectionView.register(ProductTableCollectionViewCell.self, forCellWithReuseIdentifier: ProductTableCollectionViewCell.identifier)
         
@@ -65,10 +70,11 @@ class ProductTableViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout 
         }
     }
     
-    func set(products: [Product], isFlashSale: Bool, willCategoryShow: Bool,smaller: Bool) {
+    func set(products: [Product], isFlashSale: Bool, willCategoryShow: Bool, smaller: Bool, delegate: ProductCellDelegate? ) {
         self.products = products
         self.isFlashSale = isFlashSale
         self.smaller = smaller
+        self.delegate = delegate
         collectionView.reloadData()
         
         backgroundImageView.isHidden = !isFlashSale
@@ -105,6 +111,15 @@ class ProductTableViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout 
         
         setNeedsLayout()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedProduct = products![indexPath.item]
+    }
+    
+    func didTapProduct(image: UIImageView) {
+        guard let selectedProduct else { return }
+        delegate?.didSelectProduct(product: selectedProduct,image: image)
+    }
 }
 
 extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -115,6 +130,7 @@ extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductTableCollectionViewCell.identifier, for: indexPath) as! ProductTableCollectionViewCell
         cell.configure(product: products![indexPath.item], isFlashSale: isFlashSale, smaller: smaller)
+        cell.delegate = self
         return cell
     }
     
@@ -126,6 +142,5 @@ extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
         }else {
             return .init(width: 150, height: 300)
         }
-        
     }
 }

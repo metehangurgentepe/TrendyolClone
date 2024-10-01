@@ -73,11 +73,16 @@ class RatingView: UIStackView {
         let halfStar = rating - Double(fullStars) >= 0.5
         let emptyStars = maxRating - fullStars - (halfStar ? 1 : 0)
         
+        // Yıldızların boyutu
+        let starSize: CGFloat = 12
+        
         // Dolu yıldızları ekle
         for _ in 0..<fullStars {
             let starImageView = UIImageView(image: UIImage(systemName: "star.fill"))
             starImageView.tintColor = ThemeColor.starColor
-            starImageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            // Hem genişlik hem yükseklik kısıtlaması ekleyin
+            starImageView.widthAnchor.constraint(equalToConstant: starSize).isActive = true
+            starImageView.heightAnchor.constraint(equalToConstant: starSize).isActive = true
             starsStackView.addArrangedSubview(starImageView)
         }
         
@@ -85,7 +90,8 @@ class RatingView: UIStackView {
         if halfStar {
             let halfStarImageView = UIImageView(image: UIImage(systemName: "star.lefthalf.fill"))
             halfStarImageView.tintColor = ThemeColor.starColor
-            halfStarImageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            halfStarImageView.widthAnchor.constraint(equalToConstant: starSize).isActive = true
+            halfStarImageView.heightAnchor.constraint(equalToConstant: starSize).isActive = true
             starsStackView.addArrangedSubview(halfStarImageView)
         }
         
@@ -93,7 +99,8 @@ class RatingView: UIStackView {
         for _ in 0..<emptyStars {
             let emptyStarImageView = UIImageView(image: UIImage(systemName: "star"))
             emptyStarImageView.tintColor = ThemeColor.starColor
-            emptyStarImageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            emptyStarImageView.widthAnchor.constraint(equalToConstant: starSize).isActive = true
+            emptyStarImageView.heightAnchor.constraint(equalToConstant: starSize).isActive = true
             starsStackView.addArrangedSubview(emptyStarImageView)
         }
         

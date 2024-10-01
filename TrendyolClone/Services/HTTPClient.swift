@@ -79,7 +79,6 @@ struct HTTPClient {
             components?.path.append(resource.path.name)
             components?.queryItems = queryItems
             
-            print(components?.url, "URL BURADA")
             
             guard let url = components?.url else {
                 throw NetworkError.badRequest

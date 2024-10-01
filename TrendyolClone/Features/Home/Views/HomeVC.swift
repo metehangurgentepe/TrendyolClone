@@ -6,25 +6,23 @@
 //
 
 import UIKit
+import Hero
+import SwiftUI
 
-class HomeVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, MenuControllerDelegate {
-    var homeSearchBar = HomeSearchBar(frame: .zero)
+class HomeVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, MenuControllerDelegate, HomeCellDelegate {
     let categories = Categories.allCases
     
     let categoryController = CategoryController(collectionViewLayout: UICollectionViewFlowLayout(), categories: Categories.allCases.map { $0.rawValue}, icons: [])
     
     var colors: [UIColor] = [.red, .blue, .green, .yellow, .purple, .orange, .cyan, .magenta, .brown, .gray, .lightGray, .darkGray, .lightText, .darkText, .label, .secondaryLabel, .tertiaryLabel, .quaternaryLabel]
     var searchVC = SearchVC()
+    var fullScreenTransitionManager: FullScreenTransitionManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-        homeSearchBar.searchBarDelegate = self
-        
-        navigationItem.titleView = homeSearchBar
-        
+
         collectionView.register(ManCell.self, forCellWithReuseIdentifier: ManCell.identifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         
@@ -33,21 +31,31 @@ class HomeVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Me
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.backgroundColor = .white
         navigationController?.tabBarController?.tabBar.isTranslucent = false
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        homeSearchBar.searchBar.searchTextField.becomeFirstResponder()
-//        homeSearchBar.searchBar.searchTextField.resignFirstResponder()
-//        homeSearchBar.searchBar.searchTextField.endEditing(true)
-        homeSearchBar.searchBar.searchTextField.resignFirstResponder()
-        homeSearchBar.searchBar.text = ""
+        self.navigationItem.titleView?.layoutIfNeeded()
+        enableHero()
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        disableHero()
     }
     
     private func configure() {
+        setupNavigationBar()
         configureCategoryButtons()
         setupCollectionView()
         setupLayout()
+    }
+    
+    private func setupNavigationBar() {
+        let homeTitleView = HomeSearchBar(frame: view.frame)
+        homeTitleView.searchBarDelegate = self
+        navigationItem.titleView = homeTitleView
     }
     
     func configureCategoryButtons() {
@@ -101,6 +109,19 @@ class HomeVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Me
         let xOffset = CGFloat(indexPath.item) * collectionView.frame.width
         collectionView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: true)
     }
+    
+    func didSelectProduct(product: Product, image: UIImageView) {
+        let vc = ProductDetailViewController(product:product, image: image.image ?? UIImage())
+        vc.imageView.heroID = "image"
+        
+        image.heroID = "image"
+        
+        navigationController?.hero.isEnabled = true
+        navigationController?.heroNavigationAnimationType = .pageIn(direction: .up)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
 }
 
 extension HomeVC: HomeSearchBarDelegate {
@@ -111,7 +132,7 @@ extension HomeVC: HomeSearchBarDelegate {
     func navigate() {
         UIView.transition(with: view, duration: 0.3, options: .transitionCrossDissolve, animations: {
             if self.searchVC.view.isHidden{
-//                self.searchVC.view.isHidden = false
+                //                self.searchVC.view.isHidden = false
             } else {
                 self.view.addSubview(self.searchVC.view)
             }
@@ -156,9 +177,11 @@ extension HomeVC {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManCell.identifier, for: indexPath) as! ManCell
+            cell.delegate = self
             return cell
         } else if indexPath.item == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManCell.identifier, for: indexPath) as! ManCell
+            cell.delegate = self
             return cell
         }
         else {
@@ -171,4 +194,13 @@ extension HomeVC {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: collectionView.frame.height)
     }
+}
+
+
+struct ProductViewController_Previews: PreviewProvider {
+  static var previews: some View {
+    ViewControllerPreview {
+        TabBarViewController()
+    }
+  }
 }

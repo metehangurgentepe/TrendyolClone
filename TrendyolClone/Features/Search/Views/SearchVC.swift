@@ -8,7 +8,11 @@
 import Foundation
 import UIKit
 
-class SearchVC: UIViewController, PastSearchesCellDelegate, UICollectionViewDelegateFlowLayout {
+class SearchVC: UIViewController, PastSearchesCellDelegate, UICollectionViewDelegateFlowLayout, ProductCellDelegate {
+    func didSelectProduct(product: Product, image: UIImageView) {
+        
+    }
+    
     
     enum Section: CaseIterable {
         case pastSearches
@@ -192,7 +196,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
-            cell.set(products: forYouProducts, isFlashSale: false, willCategoryShow: false, smaller: true)
+            cell.set(products: forYouProducts, isFlashSale: false, willCategoryShow: false, smaller: true, delegate: self)
             return cell
             
         case 2:

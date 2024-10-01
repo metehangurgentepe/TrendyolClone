@@ -7,11 +7,18 @@
 
 import UIKit
 
-class ManCell: UICollectionViewCell {
+
+protocol HomeCellDelegate: AnyObject {
+    func didSelectProduct(product: Product, image: UIImageView)
+}
+
+class ManCell: UICollectionViewCell, ProductCellDelegate {
     static let identifier: String = "ManCell"
     
     let viewModel = HomeViewModel(httpClient: HTTPClient(session: .shared))
-    var slider = ImageSliderView(images: SliderImages.images)
+    var slider = ImageSliderView(images: SliderImages.images, isFromInternet: false, showPageControl: false)
+    
+    var delegate: HomeCellDelegate?
     
     enum Section: CaseIterable{
         case discoverServices
@@ -121,12 +128,12 @@ extension ManCell: UITableViewDelegate, UITableViewDataSource {
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
-            cell.set(products: forYouProducts, isFlashSale: false, willCategoryShow: false, smaller: false)
+            cell.set(products: forYouProducts, isFlashSale: false, willCategoryShow: false, smaller: false, delegate: self)
             return cell
             
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
-            cell.set(products: forYouProducts, isFlashSale: true, willCategoryShow: false,smaller: false)
+            cell.set(products: forYouProducts, isFlashSale: true, willCategoryShow: false,smaller: false, delegate: self)
             return cell
             
         case 3:
@@ -136,14 +143,17 @@ extension ManCell: UITableViewDelegate, UITableViewDataSource {
             
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
-            cell.set(products: forYouProducts, isFlashSale: false, willCategoryShow: false,smaller: false)
+            cell.set(products: forYouProducts, isFlashSale: false, willCategoryShow: false,smaller: false, delegate: self)
             return cell
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: DiscoverServicesTableViewCell.identifier, for: indexPath) as! DiscoverServicesTableViewCell
             return cell
         }
-        
+    }
+    
+    func didSelectProduct(product: Product,image: UIImageView) {
+        self.delegate?.didSelectProduct(product: product,image: image)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

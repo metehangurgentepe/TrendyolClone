@@ -22,7 +22,7 @@ struct TabBarModel {
                                    title: "Anasayfa",
                                    viewController: HomeVC(collectionViewLayout: UICollectionViewFlowLayout()))
         let secondTab = TabBarModel(iconName: "", title: "Trendyol Go", viewController: UIViewController())
-        let thirdTab = TabBarModel(iconName: "", title: "Favorilerim", viewController: UIViewController())
+        let thirdTab = TabBarModel(iconName: "", title: "Favorilerim", viewController: FavoritesViewController(collectionViewLayout: UICollectionViewFlowLayout()))
         let fourthTab = TabBarModel(iconName: "", title: "Sepetim", viewController: UIViewController())
         let fifthTab = TabBarModel(iconName: "", title: "Hesabım", viewController: UIViewController())
         

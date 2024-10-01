@@ -8,7 +8,9 @@
 import UIKit
 import Kingfisher
 
-import UIKit
+protocol ProductTableCollectionViewCellDelegate: AnyObject {
+    func didTapProduct(image: UIImageView)
+}
 
 class ProductTableCollectionViewCell: UICollectionViewCell {
     
@@ -21,7 +23,7 @@ class ProductTableCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let combinedLabel: UILabel = {
+    var combinedLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
         return label
@@ -58,8 +60,16 @@ class ProductTableCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    var delegate: ProductTableCollectionViewCellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        tapGesture.cancelsTouchesInView = false
+        imageView.isUserInteractionEnabled = true
+        contentView.addGestureRecognizer(tapGesture)
+        
         setupLayout()
     }
     
@@ -172,56 +182,50 @@ class ProductTableCollectionViewCell: UICollectionViewCell {
         
         shippingLabel.font = .systemFont(ofSize: 6, weight: .bold)
         priceLabel.font = .systemFont(ofSize: 9, weight: .bold)
+                
+        combinedLabel.removeFromSuperview()
         
-        combinedLabel.snp.makeConstraints { make in
+        let label = BrandAndModelLabel(brand: product.brand, title: product.title, size: 6)
+        combinedLabel = label
+        
+        contentView.addSubview(combinedLabel)
+        
+        combinedLabel.snp.remakeConstraints { make in
             make.top.equalTo(shippingFreeView.snp.bottom).offset(2)
             make.leading.equalToSuperview().inset(2)
             make.trailing.equalToSuperview().inset(2)
-            make.height.equalTo(15)
+            make.height.equalTo(30)
         }
         
-        let attributedText = NSMutableAttributedString(
-            string: product.brand ?? "",
-            attributes: [
-                .font: UIFont.systemFont(ofSize: 6, weight: .medium),
-                .foregroundColor: UIColor.black
-            ]
-        )
-        
-        let modelText = NSAttributedString(
-            string: " \( product.title)",
-            attributes: [
-                .font: UIFont.systemFont(ofSize: 6, weight: .medium),
-                .foregroundColor: UIColor.systemGray
-            ]
-        )
-        
-        attributedText.append(modelText)
-        
-        combinedLabel.attributedText = attributedText
+        priceLabel.snp.remakeConstraints { make in
+            make.top.equalTo(combinedLabel.snp.bottom).offset(2)
+            make.leading.equalToSuperview().inset(2)
+            make.height.equalTo(20)
+        }
     }
     
     func configure(product: Product, isFlashSale: Bool, smaller: Bool?) {
-        let attributedText = NSMutableAttributedString(
-            string: product.brand ?? "",
-            attributes: [
-                .font: UIFont.systemFont(ofSize: 12, weight: .medium),
-                .foregroundColor: UIColor.black
-            ]
-        )
+        combinedLabel.removeFromSuperview()
         
-        let modelText = NSAttributedString(
-            string: " \( product.title)",
-            attributes: [
-                .font: UIFont.systemFont(ofSize: 12, weight: .medium),
-                .foregroundColor: UIColor.systemGray
-            ]
-        )
+        let label = BrandAndModelLabel(brand: product.brand, title: product.title, size: 12)
+        combinedLabel = label
         
-        attributedText.append(modelText)
+        contentView.addSubview(combinedLabel)
         
-        combinedLabel.attributedText = attributedText
-        priceLabel.text =  "\(product.price)TL"
+        combinedLabel.snp.remakeConstraints { make in
+            make.top.equalTo(shippingFreeView.snp.bottom).offset(2)
+            make.leading.equalToSuperview().inset(2)
+            make.trailing.equalToSuperview().inset(2)
+            make.height.equalTo(30)
+        }
+        
+        priceLabel.snp.makeConstraints { make in
+            make.top.equalTo(combinedLabel.snp.bottom).offset(2)
+            make.leading.equalToSuperview().inset(2)
+            make.height.equalTo(20)
+        }
+        
+        priceLabel.text =  "\(product.price) TL"
         imageView.kf.setImage(with: URL(string: product.thumbnail))
         
         if isFlashSale {
@@ -231,5 +235,13 @@ class ProductTableCollectionViewCell: UICollectionViewCell {
         if smaller == true {
             configureSmallerContentView(product)
         }
+    }
+    
+    override func select(_ sender: Any?) {
+        self.delegate?.didTapProduct(image: imageView)
+    }
+    
+    @objc private func imageTapped() {
+        self.delegate?.didTapProduct(image: imageView)
     }
 }

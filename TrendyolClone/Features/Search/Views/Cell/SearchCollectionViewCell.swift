@@ -9,7 +9,6 @@ import UIKit
 
 class SearchCollectionViewCell: UICollectionViewCell {
     static let identifier = "SearchCollectionViewCell"
-//    var slider: ImageSliderView = ImageSliderView(images: [])
     var slider = UIImageView()
     
     let likeButton = LikeButton(frame: .zero)

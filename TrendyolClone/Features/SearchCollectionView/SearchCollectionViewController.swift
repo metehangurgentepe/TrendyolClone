@@ -277,7 +277,8 @@ extension SearchCollectionViewController: SearchBarViewDelegate {
                 self.view.addSubview(self.searchVC.view)
                 
                 self.searchVC.view.snp.makeConstraints { make in
-                    make.edges.equalTo(self.view)
+                    make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(20)
+                    make.trailing.leading.bottom.equalTo(self.view)
                 }
             }, completion: nil)
         }

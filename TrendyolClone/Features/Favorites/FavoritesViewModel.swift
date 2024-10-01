@@ -6,3 +6,34 @@
 //
 
 import Foundation
+
+protocol FavoritesViewDelegate: AnyObject {
+    func getProducts(products: [Product] )
+    func showError(_ error: Error)
+    func loading(_ isLoading: Bool)
+}
+
+class FavoritesViewModel {
+    let httpClient: HTTPClient
+    
+    weak var delegate: FavoritesViewDelegate?
+    private(set) var products: [Product] = []
+    
+    init(httpClient: HTTPClient){
+        self.httpClient = httpClient
+    }
+    
+    func getProducts() async{
+        let url = URL(string: URLConstants.baseURL)!
+        let resource  = Resource(url: url, path: .getAllProducts, modelType: ProductResponse.self)
+        
+        do{
+            let products = try await httpClient.load(resource)
+            self.products = products.products
+            self.delegate?.getProducts(products: products.products)
+            self.delegate?.loading(false)
+        } catch {
+            self.delegate?.showError(error)
+        }
+    }
+}

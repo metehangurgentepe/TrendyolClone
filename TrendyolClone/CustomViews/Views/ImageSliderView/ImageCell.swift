@@ -9,16 +9,25 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class ImageCell: UICollectionViewCell {
+protocol ImageCellDelegate: AnyObject {
+    func changeBackgroundColor(_ color: UIColor)
+}
+
+class ImageCell: UICollectionViewCell, ImageCellDelegate {
     private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
         return iv
     }()
+    
+    var delegate: ImageCellDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        delegate = self
+        
         
         contentView.addSubview(imageView)
         
@@ -30,8 +39,16 @@ class ImageCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func changeBackgroundColor(_ color: UIColor) {
+        imageView.backgroundColor = backgroundColor
+    }
 
-    func configure(imageUrl: String) {
-        imageView.image = UIImage(named: imageUrl)
+    func configure(imageUrl: String, isFromInternet: Bool) {
+        if isFromInternet {
+            imageView.kf.setImage(with: URL(string: imageUrl))
+        } else {
+            imageView.image = UIImage(named: imageUrl)
+        }
     }
 }
