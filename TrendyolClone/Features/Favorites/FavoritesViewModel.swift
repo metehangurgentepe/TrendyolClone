@@ -26,7 +26,7 @@ class FavoritesViewModel {
     func getProducts() async{
         var queryItems: [URLQueryItem] =  [
             URLQueryItem(name: "limit", value: "\(10)"),
-            URLQueryItem(name: "skip", value: "30")
+            URLQueryItem(name: "skip", value: "0")
         ]
         
         let url = URL(string: URLConstants.baseURL)!
