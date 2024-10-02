@@ -28,7 +28,7 @@ class FavoritesTableViewCell: UITableViewCell {
     let productName: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .label
+        label.textColor = .gray
         return label
     }()
     

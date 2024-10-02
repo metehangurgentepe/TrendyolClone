@@ -100,7 +100,7 @@ class FavoritesController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return ScreenSize.height * 0.3
+        return ScreenSize.height * 0.25
     }
 
 }

@@ -46,7 +46,7 @@ class MenuController: UICollectionViewController, UICollectionViewDelegateFlowLa
         menuBar.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.height.equalTo(2)
+            make.height.equalTo(4)
             make.width.equalTo(ScreenSize.width / 2)
         }
     }

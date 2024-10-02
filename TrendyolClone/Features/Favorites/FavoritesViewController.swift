@@ -25,7 +25,6 @@ class FavoritesViewController: UICollectionViewController {
         navigationController?.navigationBar.removeFromSuperview()
         navigationController?.navigationBar.isHidden = true
         
-        
         view.backgroundColor = .white
         
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
@@ -35,9 +34,11 @@ class FavoritesViewController: UICollectionViewController {
         
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isScrollEnabled = false
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: CollectionCell.identifier)
         collectionView.register(FavoritesCell.self, forCellWithReuseIdentifier: FavoritesCell.identifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "second")
         
@@ -102,10 +103,8 @@ extension FavoritesViewController: FavoriteMenuControllerDelegate, UICollectionV
             cell.configure(products: products)
             return cell
         } else {
-            //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeDetailCell.identifier, for: indexPath) as! RecipeDetailCell
-            //            cell.configure(recipe: recipe!)
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "second", for: indexPath)
-            cell.backgroundColor = .blue
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCell.identifier, for: indexPath) as! CollectionCell
+//            cell.configure(products: products)
             return cell
         }
     }

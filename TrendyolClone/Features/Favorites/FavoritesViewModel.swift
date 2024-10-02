@@ -24,8 +24,13 @@ class FavoritesViewModel {
     }
     
     func getProducts() async{
+        var queryItems: [URLQueryItem] =  [
+            URLQueryItem(name: "limit", value: "\(10)"),
+            URLQueryItem(name: "skip", value: "30")
+        ]
+        
         let url = URL(string: URLConstants.baseURL)!
-        let resource  = Resource(url: url, path: .getAllProducts, modelType: ProductResponse.self)
+        let resource  = Resource(url: url, path: .getAllProducts,method: .get(queryItems), modelType: ProductResponse.self)
         
         do{
             let products = try await httpClient.load(resource)
